@@ -238,3 +238,5 @@ fabric.properties
 # All .idea files ignore
 .idea/*
 
+*.json
+

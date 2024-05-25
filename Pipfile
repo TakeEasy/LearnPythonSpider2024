@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 requests = "*"
+httpx = {extras = ["http2"], version = "*"}
 
 [dev-packages]
 

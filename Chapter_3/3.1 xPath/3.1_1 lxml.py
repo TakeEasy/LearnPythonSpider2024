@@ -16,9 +16,9 @@ result = etree.tostring(html)
 print(result.decode('utf-8'))
 
 # 可直接从文件导入
-html = etree.parse('./test.html', etree.HTMLParser())
-result = etree.tostring(html)
-print(result.decode('utf-8'))
+# html = etree.parse('./test.html', etree.HTMLParser())
+# result = etree.tostring(html)
+# print(result.decode('utf-8'))
 
 # 所有节点 指定节点
 result = html.xpath('//*')

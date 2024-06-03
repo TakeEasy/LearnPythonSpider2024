@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-requests = "*"
 httpx = {extras = ["http2"], version = "*"}
 lxml = "*"
 beautifulsoup4 = "*"
 pyquery = "*"
 parsel = "*"
 pymysql = "*"
+requests = {extras = ["socks"], version = "*"}
 
 [dev-packages]
 

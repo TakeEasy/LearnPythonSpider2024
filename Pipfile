@@ -11,6 +11,7 @@ pyquery = "*"
 parsel = "*"
 pymysql = "*"
 requests = {extras = ["socks"], version = "*"}
+pymongo = "*"
 
 [dev-packages]
 

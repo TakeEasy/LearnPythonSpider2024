@@ -1,12 +1,18 @@
 import requests
 import settings
+import pymongo
 from logging import config, getLogger
 
 BASE_URL = 'https://spa1.scrape.center/'
 AJAX_URL = 'https://spa1.scrape.center/api/movie/?limit={limit}&offset={offset}'
 LIMIT = 10
 DETAIL_URL = 'https://spa1.scrape.center/api/movie/{id}'
-TOTAL_PAGES = 10
+TOTAL_PAGES = 1
+
+# mongodb connection
+MONGO_CONNECTION_STRING = 'mongodb://localhost:27017'
+MONGO_DB_NAME = 'javbus'
+MONGO_COLLECTION_NAME = 'movies'
 
 # html = requests.get(BASE_URL).text
 # print(html)
@@ -36,6 +42,19 @@ def scrape_detail(id):
     return scrape_api(url)
 
 
+client = pymongo.MongoClient(MONGO_CONNECTION_STRING)
+db = client[MONGO_DB_NAME]
+collection = db[MONGO_COLLECTION_NAME]
+
+
+def save_data(data):
+    collection.update_one({
+        'name': data.get('name')
+    }, {
+        '$set': data
+    }, upsert=True)
+
+
 def main():
     for page in range(1, TOTAL_PAGES + 1):
         index_data = scrape_index(page)
@@ -43,8 +62,10 @@ def main():
             id = item.get('id')
             detail_data = scrape_detail(id)
             logger_s.info('detail data %s', detail_data)
+            save_data(detail_data)
+            logger_s.info('data saved successfully')
 
 
 if __name__ == '__main__':
-    #
-    logger_s.info('hahaha')
+    main()
+    # logger_s.info('hahaha')
